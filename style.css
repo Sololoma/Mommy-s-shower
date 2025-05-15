@@ -1,0 +1,204 @@
+@import url("https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap");
+
+:root {
+  --primary-color: #f8b6d2;
+  --accent-color: #ff7eb9;
+  --soft-pink: #ffe0f0;
+  --deep-pink: #ff4081;
+  --light-gold: #fff1e6;
+  --text-color: #4a004e;
+  --bg-color: #fff6fb;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Cairo", sans-serif;
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  min-height: 100vh;
+  line-height: 1.6;
+}
+
+header {
+  background-color: var(--primary-color);
+  padding: 2rem 1.5rem;
+  text-align: center;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  width: 100%;
+}
+
+header h1 {
+  margin: 0;
+  font-size: 2.5rem;
+  color: white;
+}
+
+main {
+  padding: 3rem 2rem;
+  margin: 2.5rem auto;
+  max-width: 800px;
+  width: 100%;
+  background-color: white;
+  border-radius: 24px;
+  box-shadow: 0 4px 20px rgba(255, 126, 185, 0.15);
+  display: flex;
+  flex-direction: column;
+  gap: 2.5rem;
+}
+
+section {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  align-items: stretch;
+}
+
+.ritual-checklist h2,
+.tribute-section h2 {
+  color: var(--deep-pink);
+  text-align: center;
+  font-size: 1.8rem;
+}
+
+.ritual-checklist label {
+  display: block;
+  background-color: var(--soft-pink);
+  padding: 1rem 1.5rem;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  text-align: center;
+  font-size: 1.1rem;
+}
+
+.ritual-checklist label:hover {
+  background-color: var(--accent-color);
+  color: white;
+}
+
+button {
+  background-color: var(--accent-color);
+  color: white;
+  border: none;
+  padding: 0.9rem 1.5rem;
+  border-radius: 25px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  width: 100%;
+  max-width: 220px;
+  margin: 0 auto;
+  display: block;
+  font-size: 1.05rem;
+  font-weight: bold;
+}
+
+button:hover {
+  background-color: var(--deep-pink);
+}
+
+#timer {
+  font-size: 3.2rem;
+  font-weight: bold;
+  text-align: center;
+  color: var(--deep-pink);
+}
+
+.progress-container {
+  background-color: var(--soft-pink);
+  border-radius: 20px;
+  overflow: hidden;
+  height: 24px;
+  width: 100%;
+}
+
+#progressBar {
+  height: 100%;
+  width: 0;
+  background-color: var(--accent-color);
+  transition: width 0.5s ease;
+}
+
+#progressText {
+  text-align: center;
+  margin-top: 0.7rem;
+  font-weight: bold;
+  font-size: 1.1rem;
+  color: var(--text-color);
+}
+
+.tribute-option {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: var(--light-gold);
+  padding: 1rem 1.5rem;
+  border-radius: 14px;
+  font-weight: bold;
+  font-size: 1rem;
+}
+
+.tribute-option span {
+  color: var(--text-color);
+}
+
+.penalty-display,
+.total-tributes {
+  background-color: var(--soft-pink);
+  padding: 1.2rem;
+  border-radius: 12px;
+  text-align: center;
+  color: var(--deep-pink);
+  font-weight: bold;
+  font-size: 1.1rem;
+}
+
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(255, 126, 185, 0.7);
+  display: none;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+}
+
+.modal-content {
+  background: white;
+  padding: 2rem;
+  border-radius: 24px;
+  width: 90%;
+  max-width: 420px;
+  box-shadow: 0 4px 16px rgba(255, 64, 129, 0.2);
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+}
+
+.modal input {
+  padding: 0.9rem;
+  border: 2px solid var(--accent-color);
+  border-radius: 10px;
+  width: 100%;
+  font-size: 1rem;
+}
+
+.modal button {
+  background-color: var(--primary-color);
+}
+
+.session-info {
+  text-align: center;
+  color: #7d004f;
+  font-size: 1rem;
+}

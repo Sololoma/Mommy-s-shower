@@ -55,6 +55,7 @@ let isRunning = false;
 let penalty = 0;
 
 // === Rituals Logic ===
+let totalTributes = 0;
 const ritualCheckboxes = document.querySelectorAll(
   ".ritual-checklist input[type='checkbox']"
 );
@@ -63,6 +64,7 @@ ritualCheckboxes.forEach((checkbox) => {
     updateAdditionalTime();
     updateTotalTime();
     updateProgress();
+    updateTotalTributesFromRituals();
     saveSessionData();
   });
 });
@@ -77,6 +79,16 @@ function updateTotalTime() {
   totalTime = baseTime + additionalTime * 60;
   if (!isRunning) remainingTime = totalTime;
   updateTimerDisplay();
+}
+
+function updateTotalTributesFromRituals() {
+  const checkedCount = Array.from(ritualCheckboxes).filter(
+    (cb) => cb.checked
+  ).length;
+  const tributeFromRituals = checkedCount * 50;
+  const tributeFromButtons = totalTributesFromButtons;
+  totalTributes = tributeFromButtons + tributeFromRituals;
+  document.getElementById("totalTributes").textContent = totalTributes;
 }
 
 // === Timer Functions ===
@@ -128,20 +140,23 @@ function updatePenalty() {
 
 // === Progress Bar ===
 function updateProgress() {
-  const completed = (1 - Math.max(remainingTime, 0) / totalTime) * 100;
-  document.getElementById("progressBar").style.width = `${completed}%`;
-  document.getElementById("progressText").textContent = `${Math.floor(
-    completed
-  )}% completed`;
+  const ritualsCompleted = Array.from(ritualCheckboxes).filter(
+    (cb) => cb.checked
+  ).length;
+  const ritualProgress = ritualsCompleted * 25;
+  document.getElementById("progressBar").style.width = `${ritualProgress}%`;
+  document.getElementById(
+    "progressText"
+  ).textContent = `${ritualProgress}% completed`;
 }
 
-// === Tribute Handling ===
-let totalTributes = 0;
+// === Tribute Buttons ===
+let totalTributesFromButtons = 0;
 document.querySelectorAll(".tribute-btn").forEach((button) => {
-  button.addEventListener("click", (e) => {
+  button.addEventListener("click", () => {
     const amount = parseInt(button.closest(".tribute-option").dataset.amount);
-    totalTributes += amount;
-    document.getElementById("totalTributes").textContent = totalTributes;
+    totalTributesFromButtons += amount;
+    updateTotalTributesFromRituals();
     saveSessionData();
   });
 });
@@ -151,7 +166,7 @@ function saveSessionData() {
   const data = {
     remainingTime,
     additionalTime,
-    totalTributes,
+    totalTributesFromButtons,
     penalty,
     rituals: Array.from(ritualCheckboxes).map((cb) => cb.checked),
     isRunning,
@@ -166,7 +181,7 @@ function loadSessionData() {
       remainingTime = data.remainingTime;
       additionalTime = data.additionalTime;
       penalty = data.penalty;
-      totalTributes = data.totalTributes;
+      totalTributesFromButtons = data.totalTributesFromButtons || 0;
       isRunning = data.isRunning;
 
       ritualCheckboxes.forEach((cb, i) => {
@@ -177,7 +192,7 @@ function loadSessionData() {
       updatePenalty();
       updateTimerDisplay();
       updateProgress();
-      document.getElementById("totalTributes").textContent = totalTributes;
+      updateTotalTributesFromRituals();
 
       if (isRunning) {
         startTimer();
@@ -194,4 +209,5 @@ updateTotalTime();
 updateProgress();
 updateTimerDisplay();
 updatePenalty();
+updateTotalTributesFromRituals();
 loadSessionData();
